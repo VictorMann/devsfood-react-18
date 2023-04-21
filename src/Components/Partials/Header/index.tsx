@@ -2,7 +2,7 @@ import * as C from './styles';
 
 function Comp() {
   return (
-    <div>Header</div>
+    <C.Container></C.Container>
   )
 }
 

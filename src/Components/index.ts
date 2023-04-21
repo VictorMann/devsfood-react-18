@@ -14,4 +14,6 @@ height: 100vh;
 }
 `;
 
-export const PageBody = styled.div.attrs({ className: 'page-body' })``;
+export const PageBody = styled.div.attrs({ className: 'page-body' })`
+padding: 1rem;
+`;
