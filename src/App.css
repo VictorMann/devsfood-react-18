@@ -1,4 +1,9 @@
 :root {
   --app-primary-color: #136712;
   --app-secondary-color: #0b4e0b;
+  --app-third-color: #00980d;
+
+  --app-primary-text-color: white;
+
+  --app-border-cart: #51a13c;
 }

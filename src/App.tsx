@@ -5,6 +5,7 @@ import { Template, PageBody } from './Components';
 import Menu from './Components/Partials/Menu';
 import Header from './Components/Partials/Header';
 import Footer from './Components/Partials/Footer';
+import Cart from './Components/Cart';
 import Routes from './Routes';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Header />
           <Routes />
           <Footer />
+          <Cart />
         </PageBody>
       </Template>
     </BrowserRouter>
