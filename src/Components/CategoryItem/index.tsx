@@ -1,0 +1,31 @@
+import * as C from './styles';
+import { Link } from 'react-router-dom';
+import { CategoryType } from '../../Types';
+
+import { Tooltip } from '../Tooltip';
+
+type Props = {
+  item: CategoryType;
+  active?: number;
+};
+
+function Comp({ item, active }: Props) {
+  let strClass = item.id === 0 ? 'cat-all ' : '';
+
+  return (
+    <C.Container>
+      <Tooltip title={item.name as string} dir='top'>
+        <Link 
+          to={item.id === 0 ? '/' : `?cat=${item.id}`}
+          className={item.id === active ? (strClass + 'active') : strClass}
+          style={{ backgroundImage: `url(${item.image})` }}>
+
+            {item.name}
+
+        </Link>
+      </Tooltip>
+    </C.Container>
+  )
+}
+
+export default Comp;
