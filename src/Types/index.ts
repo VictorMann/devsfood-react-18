@@ -7,3 +7,13 @@ export type CategoryType = {
   name?: string;
   image?: string;
 };
+
+export type ProductType = {
+  id?: number;
+  category_id?: number;
+  name?: string;
+  price?: number;
+  ingredients?: string;
+  points?: number;
+  image?: string;
+};
