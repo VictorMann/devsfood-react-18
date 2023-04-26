@@ -11,6 +11,7 @@ height: 100vh;
   flex: 1;
   background: url('/images/bg.png') repeat 0 0;
   background-size: 9em;
+  overflow: auto;
 }
 `;
 

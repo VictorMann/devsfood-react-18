@@ -7,3 +7,7 @@
 
   --app-border-cart: #51a13c;
 }
+
+body {
+  overflow: hidden;
+}
