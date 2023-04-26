@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CategoryType, ErrorType } from './Types';
+import { CategoryType, ErrorType, ProductType } from './Types';
 import { trataErrorResponse } from "./Helpers";
 
 const http = axios.create({
@@ -24,4 +24,21 @@ export const api = {
 
     return data;  
   },
+
+    /**
+   * Retorna a lista de Categorias
+   * 
+   * @returns 
+   */
+    async products(filters: Object) {
+      let data: ProductType[] | ErrorType | any;
+      try {
+        const resp = await http.get('/products', { params: filters });
+        data = resp.data;
+      } catch (e: any) {
+        data = trataErrorResponse(e);
+      }
+  
+      return data;  
+    },
 };

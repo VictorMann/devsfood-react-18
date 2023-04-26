@@ -31,6 +31,32 @@ app.get('/categories', (req, res) => {
 });
 
 
+// Rota produtos
+app.get('/products', (req, res) => {
+  let { cat, q } = req.query;
+  let filters = [];
+
+  cat = isNaN(cat) ? '' : cat;
+  let sql = 'SELECT * FROM product WHERE 1 = 1';
+  
+  if (cat) {
+    sql += ' AND category_id = ?';
+    filters.push(cat);
+  }
+
+  if (q) {
+    sql += ' AND name LIKE ?';
+    filters.push(`%${q}%`);
+  }
+
+
+  db.all(sql, filters, (err, result) => {
+    if (err) throw err;
+    res.json(result);
+  }); 
+});
+
+
 // Rota de Imagem
 app.get('/images/:file', (req, res) => {
   const { file } = req.params;
