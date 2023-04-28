@@ -17,3 +17,8 @@ export type ProductType = {
   points?: number;
   image?: string;
 };
+
+export type CartItemType = {
+  qtd: number;
+  item: ProductType;
+};

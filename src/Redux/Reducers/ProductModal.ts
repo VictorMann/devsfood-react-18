@@ -8,7 +8,9 @@ const slice = createSlice({
   name: 'ProductModal',
   initialState: {
     opened: false,
-    product
+    product,
+    stateBefore: false,
+    stateAfter: false,
   },
   reducers: {
     setOpen(state, action) {
@@ -16,9 +18,15 @@ const slice = createSlice({
     },
     setProduct(state, action) {
       state.product = {...action.payload};
+    },
+    setStateBefore(state, action) {
+      state.stateBefore = action.payload;
+    },
+    setStateAfter(state, action) {
+      state.stateAfter = action.payload;
     }
   }
 });
 
-export const { setOpen, setProduct } = slice.actions;
+export const { setOpen, setProduct, setStateBefore, setStateAfter } = slice.actions;
 export default slice.reducer;
