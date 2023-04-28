@@ -1,9 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as C from './styles';
+import { useAppSelector } from '../../Redux/hooks/useAppSelector';
+
+let flatNotFirstEffect = true;
 
 function Comp() {
-
+  const stateAddCart = useAppSelector(state => state.ProductModal.stateAfter);
   const [active, setActive] = useState<boolean>(false);
+
+  useEffect(() => { 
+    if (flatNotFirstEffect) { flatNotFirstEffect = false; return }
+    !stateAddCart && setActive(true);
+   }, [stateAddCart]);
 
   return (
     <C.Container className={active ? 'active rounded-top' : 'rounded-top'}>
