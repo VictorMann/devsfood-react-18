@@ -8,18 +8,27 @@ import Footer from './Components/Partials/Footer';
 import Cart from './Components/Cart';
 import Routes from './Routes';
 
+import ModalProduct from './Components/ModalProduct';
+import { useAppSelector } from './Redux/hooks/useAppSelector';
+
 function App() {
+  const openedModalProduct = useAppSelector(state => state.ProductModal.opened);
+
   return (
     <BrowserRouter>
-      <Template>
-        <Menu />
-        <PageBody>
-          <Header />
-          <Routes />
-          <Footer />
-          <Cart />
-        </PageBody>
-      </Template>
+      <>
+        <Template>
+          <Menu />
+          <PageBody>
+            <Header />
+            <Routes />
+            <Footer />
+            <Cart />
+          </PageBody>
+        </Template>
+
+        {openedModalProduct && <ModalProduct />}
+      </>
     </BrowserRouter>
   );
 }
