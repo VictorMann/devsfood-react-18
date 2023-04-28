@@ -56,3 +56,15 @@ export const get = (data: any, type: string|null = null, defalut: any = '') => {
 export const formatMoeda = (number: string|number) => {
 	return Number(number).toFixed(2).replaceAll('.', ',');
 };
+
+/**
+ * Delay de processo
+ * 
+ * @param time {number} tempo em segundos de espera, default 500ms
+ * @returns {null}
+ */
+export const delay = async (time: number = 500) => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => resolve(null), time);
+	});
+}
