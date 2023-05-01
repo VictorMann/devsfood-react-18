@@ -1,17 +1,38 @@
-import { useEffect, useState } from 'react';
 import * as C from './styles';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../Redux/hooks/useAppSelector';
+import { setCart } from '../../Redux/Reducers/Cart';
+import { formatMoeda } from '../../Helpers';
+import { CartItemType } from '../../Types';
 
 let flatNotFirstEffect = true;
 
 function Comp() {
+  const dispatch = useDispatch();
   const stateAddCart = useAppSelector(state => state.ProductModal.stateAfter);
+  const cart = useAppSelector(state => state.Cart.data);
   const [active, setActive] = useState<boolean>(false);
 
   useEffect(() => { 
     if (flatNotFirstEffect) { flatNotFirstEffect = false; return }
     !stateAddCart && setActive(true);
-   }, [stateAddCart]);
+  }, [stateAddCart]);
+
+  const fnPlusAndMinus = (index: number, oper: '+'|'-') => {
+    let xCart: CartItemType[] = JSON.parse(JSON.stringify(cart));
+
+    if (oper === '-') {
+      if (xCart[index].qtd <= 1) xCart = xCart.filter((_:any, idx:number) => !(index === idx));
+      else xCart[index].qtd -= 1;
+    } 
+    else xCart[index].qtd += 1;
+    
+    dispatch( setCart(xCart) );
+  };
+
+  const total = (): number => cart.reduce((r, item) => item.qtd + r, 0);
+   
 
   return (
     <C.Container className={active ? 'active rounded-top' : 'rounded-top'}>
@@ -20,18 +41,31 @@ function Comp() {
         onClick={() => setActive(!active)}>
 
         <span><img src="/images/cart.png" alt="" /></span>
-        <span>Meu Carrinho (x)</span>
+        <span>Meu Carrinho ({total()})</span>
         
       </div>
       <div className="cart-body">
-        <div className='p-3'>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-        when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-        It has survived not only five centuries, but also the leap into electronic typesetting, 
-        remaining essentially unchanged. It was popularised in the 1960s with the release of 
-        Letraset sheets containing Lorem Ipsum passages, and more recently with desktop 
-        publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        <div className='p-1'>
+          <ul className='items-list list-unstyled'>
+            {cart.map((item, index) => (
+              <li key={index}>
+                <div className='c-area-img'>
+                  <figure>
+                    <img src={item.item.image} alt="" />
+                  </figure>
+                  <div>
+                    <span>{item.item.name}</span>
+                    <span>R$ {formatMoeda(Number(item.item.price))}</span>
+                  </div>
+                </div>
+                <div className='c-area-config'>
+                  <span className='minus' onClick={() => fnPlusAndMinus(index, '-')}></span>
+                  <span>{item.qtd}</span>
+                  <span className='plus' onClick={() => fnPlusAndMinus(index, '+')}></span>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </C.Container>
