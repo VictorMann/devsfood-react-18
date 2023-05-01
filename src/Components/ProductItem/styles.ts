@@ -55,5 +55,9 @@ img {
 }
 .fig-ing {
   font-size: .9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: ltr;
 }
 `;

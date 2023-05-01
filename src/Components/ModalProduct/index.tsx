@@ -2,7 +2,7 @@ import * as C from './styles';
 import { useState, useRef } from 'react';
 import { useAppSelector } from '../../Redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
-import { setAdd } from '../../Redux/Reducers/Cart'; 
+import { setCart } from '../../Redux/Reducers/Cart'; 
 import { setStateBefore, setStateAfter } from '../../Redux/Reducers/ProductModal'; 
 import Modal from '../Modal';
 import { formatMoeda } from '../../Helpers';
@@ -25,7 +25,7 @@ function Comp() {
     let pos = xCart.findIndex(x => x.item.id === product.id);
     if (pos !== -1) xCart[pos].qtd += qt;
     else xCart.push({qtd: qt, item: product});
-    dispatch( setAdd(xCart) );
+    dispatch( setCart(xCart) );
     dispatch( setStateAfter(true) );
     closeField.current?.click();
   };

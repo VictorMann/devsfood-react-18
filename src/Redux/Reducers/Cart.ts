@@ -9,11 +9,11 @@ const slice = createSlice({
     data: cart
   },
   reducers: {
-    setAdd(state, action) {
+    setCart(state, action) {
       state.data = [...action.payload];
     }
   }
 });
 
-export const { setAdd } = slice.actions;
+export const { setCart } = slice.actions;
 export default slice.reducer;
