@@ -31,21 +31,24 @@ function Comp() {
     dispatch( setCart(xCart) );
   };
 
-  const total = (): number => cart.reduce((r, item) => item.qtd + r, 0);
-   
+  const totalItens = (): number => cart.reduce((r, item) => item.qtd + r, 0);
+
+  const totalPrice = (): number => cart.reduce((r, item) => (item.qtd * Number(item.item.price)) + r, 0);
+  
+  const discount = 1;
 
   return (
-    <C.Container className={active ? 'active rounded-top' : 'rounded-top'}>
+    <C.Container qtdItensCart={cart.length} className={active ? 'active rounded-top' : 'rounded-top'}>
       <div 
         className="cart-header d-flex align-items-center"
         onClick={() => setActive(!active)}>
 
         <span><img src="/images/cart.png" alt="" /></span>
-        <span>Meu Carrinho ({total()})</span>
+        <span>Meu Carrinho ({totalItens()})</span>
         
       </div>
       <div className="cart-body">
-        <div className='p-1'>
+        <div className='p-2'>
           <ul className='items-list list-unstyled'>
             {cart.map((item, index) => (
               <li key={index}>
@@ -66,7 +69,46 @@ function Comp() {
               </li>
             ))}
           </ul>
+
+          <div className="area-entrega">
+            <h5>Entrega</h5>
+            <div className='area-entrega--body'>
+              <div className='info-end'>
+                <span>Minha Casa</span>
+                <span>Rua bla bla bla Rua bla bla bla Rua bla bla bla Rua bla bla bla Rua bla bla bla , 000</span>
+                <span>Cidade, Estado</span>
+              </div>
+              <span className='edit-end'></span>
+            </div>
+          </div>
+
+          <div className='discount-coupon'>
+            <h5>Cupom de Desconto</h5>
+            <input 
+              type="text" 
+              className='form-control form-control-sm' />
+          </div>
+
+          <ul className="area-amount list-unstyled mt-2">
+            <li className='d-flex justify-content-between'>
+              <span>Desconto</span>
+              <span>R$ {formatMoeda( discount )}</span>
+            </li>
+            <li className='d-flex justify-content-between'>
+              <span>Taxa de entrega</span>
+              <span>R$ 0,00</span>
+            </li>
+            <li className='d-flex justify-content-between'>
+              <span>Total</span>
+              <span>R$ {formatMoeda( totalPrice() - discount )}</span>
+            </li>
+          </ul>
+
+          <button className='btn-order w-100'>Finalizar Compra</button>
+
+
         </div>
+
       </div>
     </C.Container>
   )
