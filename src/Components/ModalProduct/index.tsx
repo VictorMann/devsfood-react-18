@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 import { useAppSelector } from '../../Redux/hooks/useAppSelector';
 import { useDispatch } from 'react-redux';
 import { setCart } from '../../Redux/Reducers/Cart'; 
-import { setStateBefore, setStateAfter } from '../../Redux/Reducers/ProductModal'; 
+import { setStateBefore, setStateAfter, setOpen } from '../../Redux/Reducers/ProductModal'; 
 import Modal from '../Modal';
 import { formatMoeda } from '../../Helpers';
 import { CartItemType } from '../../Types';
@@ -31,7 +31,7 @@ function Comp() {
   };
 
   return (
-    <Modal onBeforeProcess={setStateBefore} onAfterProcess={setStateAfter}>
+    <Modal onBeforeProcess={setStateBefore} onAfterProcess={setStateAfter} setClose={() => dispatch(setOpen(false))}>
       <C.Container>
         <div className='ctn-image'>
           <img src={product.image} alt="" />
