@@ -29,3 +29,14 @@ export type UserType = {
   email?: string;
   password?: string;
 };
+
+export type EnderecoType = {
+  id?: number;
+  endereco?: string;
+  numero?: string;
+  complemento?: string;
+  cep?: string;
+  cidade?: string;
+  bairro?: string;
+  uf?: string;
+};
