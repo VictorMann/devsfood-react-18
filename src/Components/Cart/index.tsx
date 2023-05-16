@@ -11,6 +11,7 @@ let flatNotFirstEffect = true;
 function Comp() {
   const dispatch = useDispatch();
   const stateAddCart = useAppSelector(state => state.ProductModal.stateAfter);
+  const end = useAppSelector(state => state.Endereco.data);
   const cart = useAppSelector(state => state.Cart.data);
   const [active, setActive] = useState<boolean>(false);
 
@@ -69,18 +70,21 @@ function Comp() {
               </li>
             ))}
           </ul>
-
-          <div className="area-entrega">
-            <h5>Entrega</h5>
-            <div className='area-entrega--body'>
-              <div className='info-end'>
-                <span>Minha Casa</span>
-                <span>Rua bla bla bla Rua bla bla bla Rua bla bla bla Rua bla bla bla Rua bla bla bla , 000</span>
-                <span>Cidade, Estado</span>
+          
+          {end && end.cep &&
+            <div className="area-entrega">
+              <h5>Entrega</h5>
+              <div className='area-entrega--body'>
+                <div className='info-end'>
+                  {/* <span>Minha Casa</span> */}
+                  <span>{end.endereco}, {end.numero}</span>
+                  <span>{end.complemento}</span>
+                  <span>{end.cidade}, {end.uf}</span>
+                </div>
+                <span className='edit-end'></span>
               </div>
-              <span className='edit-end'></span>
-            </div>
-          </div>
+            </div>          
+          }
 
           <div className='discount-coupon'>
             <h5>Cupom de Desconto</h5>
