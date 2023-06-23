@@ -46,4 +46,18 @@ INSERT INTO product (id, category_id, name, price, ingredients, image) VALUES
 (3, 2, 'Donut de moranga', 1.99, 'farinho, ovo, etc.', 'http://localhost:3001/images/donut1.jpg'),
 (4, 3, 'Cookie de gotas de chocolate', 2.4, 'leite em pó, farinha e chocolate', 'http://localhost:3001/images/cookie1.jpg');
 
+CREATE TABLE orders (
+  id SMALLINT UNSIGNED PRIMARY KEY NOT NULL,
+  user_id SMALLINT REFERENCES user (id),
+  valor FLOAT DEFAULT 0,
+  status SMALLINT DEFAULT 0
+);
+
+CREATE TABLE order_product (
+  id SMALLINT UNSIGNED PRIMARY KEY NOT NULL,
+  order_id SMALLINT REFERENCES orders (id),
+  product_id SMALLINT REFERENCES product (id),
+  quantity SMALLINT DEFAULT 1
+);
+
 COMMIT;
