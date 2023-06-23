@@ -14,6 +14,7 @@ import ModalProduct from './Components/ModalProduct';
 import ModalLogin from './Components/ModalLogin';
 import ModalRegister from './Components/ModalRegister';
 import ModalEndereco from './Components/ModalEndereco';
+import ModalPedido from './Components/ModalPedido';
 import { useAppSelector } from './Redux/hooks/useAppSelector';
 import { isLogged } from './Helpers/auth';
 import { api } from './Api';
@@ -26,6 +27,7 @@ function App() {
   const openedLoginModal = useAppSelector(state => state.LoginModal.opened);
   const openedRegisterModal = useAppSelector(state => state.RegisterModal.opened);
   const openedEndModal = useAppSelector(state => state.EndModal.opened);
+  const openedModalPedido = useAppSelector(state => state.PedidoModal.opened);
   const user = useAppSelector(state => state.User.data);
 
   useEffect(() => {
@@ -58,6 +60,7 @@ function App() {
         {openedLoginModal && <ModalLogin />}
         {openedRegisterModal && <ModalRegister />}
         {openedEndModal && <ModalEndereco />}
+        {openedModalPedido && <ModalPedido />}
       </>
     </BrowserRouter>
   );

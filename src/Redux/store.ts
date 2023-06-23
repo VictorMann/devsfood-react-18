@@ -3,6 +3,7 @@ import ProductModal from './Reducers/ProductModal';
 import LoginModal from './Reducers/LoginModal';
 import RegisterModal from './Reducers/RegisterModal';
 import EndModal from './Reducers/EndModal';
+import PedidoModal from './Reducers/PedidoModal';
 import Cart from './Reducers/Cart';
 import User from './Reducers/User';
 import Endereco from './Reducers/Endereco';
@@ -13,6 +14,7 @@ export const store = configureStore({
     LoginModal,
     RegisterModal,
     EndModal,
+    PedidoModal,
     Cart,
     User,
     Endereco

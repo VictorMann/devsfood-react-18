@@ -1,14 +1,18 @@
 import * as C from './styles';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../Redux/hooks/useAppSelector';
 import { setCart } from '../../Redux/Reducers/Cart';
+import { setOpen } from '../../Redux/Reducers/PedidoModal';
 import { formatMoeda } from '../../Helpers';
+import { isLogged } from '../../Helpers/auth';
 import { CartItemType } from '../../Types';
 
 let flatNotFirstEffect = true;
 
 function Comp() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const stateAddCart = useAppSelector(state => state.ProductModal.stateAfter);
   const end = useAppSelector(state => state.Endereco.data);
@@ -37,6 +41,20 @@ function Comp() {
   const totalPrice = (): number => cart.reduce((r, item) => (item.qtd * Number(item.item.price)) + r, 0);
   
   const discount = 1;
+
+  const handleClickOrder = () => {
+    if (cart.length == 0) {
+      alert('Adicione ao menos 1 item no carrinho.');
+      return;
+    }
+    
+    if (isLogged()) {
+      dispatch( setOpen(true) );
+    } else {
+      navigate('/profile');
+      return;
+    }
+  };
 
   return (
     <C.Container qtdItensCart={cart.length} className={active ? 'active rounded-top' : 'rounded-top'}>
@@ -108,7 +126,11 @@ function Comp() {
             </li>
           </ul>
 
-          <button className='btn-order w-100'>Finalizar Compra</button>
+          <button 
+            className='btn-order w-100'
+            onClick={handleClickOrder}>
+              Finalizar Compra
+          </button>
 
 
         </div>
