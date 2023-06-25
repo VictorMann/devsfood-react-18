@@ -123,7 +123,17 @@ export const api = {
       data = trataErrorResponse(e);
     }
     return data;
-  }
-  
+  },
+
+  async orderStore(cart: any[], valor: number) {
+    let data: ErrorType | any;
+    try {
+      const resp = await http.post('/order', {cart, valor}, { headers: { Authorization: getToken() } });
+      data = resp.data;
+    } catch (e: any) {
+      data = trataErrorResponse(e);
+    }
+    return data;
+  },
 };
 

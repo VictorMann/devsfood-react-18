@@ -146,6 +146,37 @@ app.put('/endereco', verifyToken, (req, res) => {
   });
 });
 
+// Pedido
+app.post('/order', verifyToken, (req, res) => {
+  const cart = req.body.cart;
+  const valor = req.body.valor;
+  db.get('SELECT * FROM user WHERE email = ?', req.email, (err, result) => {
+    if (err) throw err;
+    const user = result;
+    db.get('SELECT MAX(ID) AS id FROM orders', (err, result) => {
+      if (err) throw err;
+      let orders_id = 1;
+      if (result.id) orders_id = result.id + 1;
+      db.run('INSERT INTO orders (id, user_id, valor) VALUES (?, ?, ?)', [orders_id, user.id, valor], (err) => {
+        if (err) throw err;
+        db.get('SELECT MAX(ID) AS id FROM order_product', (err, result) => {
+          if (err) throw err;
+          let op_id = 0;
+          if (result.id) op_id = result.id;
+          cart.forEach(item => {
+            op_id = op_id + 1;
+            db.run('INSERT INTO order_product (id, order_id, product_id, quantity) VALUES (?, ?, ?, ?)', [op_id, orders_id, item.product, item.qtd], (err) => {
+              if (err) throw err;
+            });
+          });
+
+          return res.json({status: true});
+        });
+      });
+    });
+  });
+});
+
 
 // Rota de Imagem
 app.get('/images/:file', (req, res) => {
