@@ -135,5 +135,16 @@ export const api = {
     }
     return data;
   },
+
+  async orderAll() {
+    let data: ErrorType | any;
+    try {
+      const resp = await http.get('/order', { headers: { Authorization: getToken() } });
+      data = resp.data;
+    } catch (e: any) {
+      data = trataErrorResponse(e);
+    }
+    return data;
+  },
 };
 

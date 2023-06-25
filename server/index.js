@@ -177,6 +177,31 @@ app.post('/order', verifyToken, (req, res) => {
   });
 });
 
+app.get('/order', verifyToken, (req, res) => {
+  db.get('SELECT * FROM user WHERE email = ?', req.email, (err, result) => {
+    if (err) throw err;
+    let sql = `
+    SELECT 
+      o.id, p.image, p.name, op.quantity, o.valor
+    FROM
+      orders AS o 
+      INNER JOIN order_product AS op ON op.order_id = o.id
+      INNER JOIN product AS p ON p.id = op.product_id
+    WHERE 
+      o.user_id = ?`;
+
+    if (!result.id) {
+      return res.json({error: 'Não Está logado'});
+    } else {
+      db.all(sql, result.id, (err, result) => {
+        if (err) throw err;
+        return res.json(result);
+      });
+    }
+  });
+});
+
+
 
 // Rota de Imagem
 app.get('/images/:file', (req, res) => {
