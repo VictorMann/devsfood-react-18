@@ -10,11 +10,13 @@ import { isLogged } from '../../Helpers/auth';
 import { CartItemType } from '../../Types';
 
 let flatNotFirstEffect = true;
+let flatNotSecondEffect = true;
 
 function Comp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const stateAddCart = useAppSelector(state => state.ProductModal.stateAfter);
+  const statePeidoFinish = useAppSelector(state => state.PedidoModal.stateAfter);
   const end = useAppSelector(state => state.Endereco.data);
   const cart = useAppSelector(state => state.Cart.data);
   const [active, setActive] = useState<boolean>(false);
@@ -23,6 +25,11 @@ function Comp() {
     if (flatNotFirstEffect) { flatNotFirstEffect = false; return }
     !stateAddCart && setActive(true);
   }, [stateAddCart]);
+
+  useEffect(() => {
+    if (flatNotSecondEffect) { flatNotSecondEffect = false; return }
+    !statePeidoFinish && setActive(false);
+  }, [statePeidoFinish]);
 
   const fnPlusAndMinus = (index: number, oper: '+'|'-') => {
     let xCart: CartItemType[] = JSON.parse(JSON.stringify(cart));
