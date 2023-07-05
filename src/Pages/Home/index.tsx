@@ -51,11 +51,6 @@ function Page() {
   }
 
   const handleClickProduct = (item: ProductType) => {
-    let fn = function() {
-      var el: any = document.querySelector('.nav-main');
-      if (el) el.style.backgroundColor = 'red';
-    };
-
     dispatch( setProduct(item) );
     dispatch( setOpen(true) );
   };
